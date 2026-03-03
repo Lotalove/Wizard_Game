@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 @SuppressWarnings("removal")
 public class GameCanvas extends JPanel {
-    ArrayList<Player> sprites = new ArrayList<Player>();
+    Player player ;
     ArrayList<Rect> enemies = new ArrayList<Rect>();
     int WIDTH= 1920;
     int HEIGHT = 1080;
@@ -30,9 +30,7 @@ public class GameCanvas extends JPanel {
         frame.setVisible(true);
     }
 
-    public void addToScene(Player s){
-        sprites.add(s);
-    }
+
     public void addToScene(Rect r){
         enemies.add(r);
     }
@@ -50,9 +48,7 @@ public class GameCanvas extends JPanel {
             }
         }
         try {
-            for (Player s : sprites) {
-                s.draw(g);
-            }
+            player.draw(g);
             for (Rect e : enemies) {
                 e.draw(g);
             }
