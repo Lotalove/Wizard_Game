@@ -1,27 +1,27 @@
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import java.applet.*;
 import java.util.ArrayList;
 
 @SuppressWarnings("removal")
 public class GameCanvas extends JPanel {
-    Player player ;
-    ArrayList<Rect> enemies = new ArrayList<Rect>();
-    int WIDTH= 1920;
-    int HEIGHT = 1080;
+    private BufferedImage dbImage;
+    private Graphics dbGraphics;
+    static Chest chest = new Chest();
+    ArrayList<TileMap> maps = new ArrayList<TileMap>();
 
-    int gridSize = 64;
 
-    int [][] map = new int[WIDTH/gridSize][HEIGHT/gridSize];
+    static int WIDTH= 1920;
+    static int HEIGHT = 1080;
+
+
+    HUD hud = new HUD();
+
+
     public GameCanvas() {
-        JFrame frame = new JFrame("Game Screen");
+        JFrame frame = new JFrame("Wizard Game");
         frame.setSize(WIDTH, HEIGHT);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -31,31 +31,46 @@ public class GameCanvas extends JPanel {
     }
 
 
-    public void addToScene(Rect r){
-        enemies.add(r);
-    }
+
     @Override
     protected void paintComponent(Graphics g) {
+
+        Player player = Game.player;
         // 1. Always call the super method first to clear the screen
+        WIDTH = getWidth();
+        HEIGHT = getHeight();
         super.paintComponent(g);
 
-        for(int row=0;row<map.length;row++){
-            for(int col=0;col<map[row].length;col++){
-                g.setColor(Color.GREEN);
-                g.fillRect(col*gridSize,row*gridSize,gridSize,gridSize);
-                g.setColor(Color.BLACK);
-                g.drawRect(col*gridSize,row*gridSize,gridSize,gridSize);
+        if(Game.state.equals("Player Dead")){
+            RespawnMenu.draw(g);
+            return;
+        }
+        for (TileMap m : maps) {
+            m.draw(g);
+        }
+
+
+
+        player.draw(g);
+
+
+        for (Character1 e : Game.enemies) {
+            e.draw(g);
+            if (e.visible){
+                e.drawHealthBar(g);
             }
         }
-        try {
-            player.draw(g);
-            for (Rect e : enemies) {
-                e.draw(g);
-            }
+        hud.drawHealthBar(g);
+        chest.draw(g);
+        if(Game.state.equals("Looting")){
+           Clue.draw(g);
         }
-        catch (Exception e) {}
+        if(Game.state.equals("End")){
+            EndGameScreen.draw(g);
+        }
     }
 
 
+    }
 
-}
+

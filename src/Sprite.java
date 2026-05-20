@@ -4,30 +4,43 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Sprite extends Rect{
+public class Sprite extends Rect {
 
-Animation[] animation;
-int action;
+    Animation[][] animations;
+    int action;
+    int direction;
 
-public Sprite(int x, int y,int width, int height) {
-    super(x, y, width, height);
-}
+    int UP = 0;
+    int DOWN = 1;
+    int LEFT = 2;
+    int RIGHT = 3;
 
-//public Image getImage(){
-//    Toolkit tk = Toolkit.getDefaultToolkit().cre;
-//}
+    int originalWidth;
+    int originalHeight;
+    boolean inverted = false;
+    double scale = 1.0;
+
+    boolean visible = true;
+    Rect hitbox;
+    ;
+    protected boolean receivingDamage = false;
+
+    public Sprite(int x, int y, int width, int height, double scale) {
+        super(x, y, (int) (width * scale), (int) (height * scale));
+        this.scale = scale;
+        this.originalWidth = width;   // Store the unscaled size
+        this.originalHeight = height; // Store the unscaled size
+        this.hitbox = new Rect(x, y, (int) (width * scale), (int) (height * scale));
+    }
+
 
     @Override
-public void draw(Graphics g) {
-    System.out.println("Drawing Action: " + action);
+    public void draw(Graphics g) {
+        if (!visible) {return;}
 
-    if(action == 2){
-        g.drawImage(this.animation[0].stillImage(), this.x, this.y,null);
+        Image img = this.animations[this.action][direction].nextImage();
+
+        g.drawImage(img, x - Camera.x, y - Camera.y, width, height, null);
+
     }
-    else{
-        g.drawImage(this.animation[this.action].nextImage(), this.x, this.y,null);
-    }
-
-}
-
 }

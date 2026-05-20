@@ -7,18 +7,23 @@ import java.io.IOException;
 public class Animation
 {
     BufferedImage[] images;
+    boolean loopable = true;
+    boolean finished = false;
 
     int numFrames;
     int frameWidth;
     int frameHeight;
 
     int current = 0;
-
     int duration;
     int delay;
+    String fileName;
+
+    int [] keyframes ;
 
     public Animation(String path, int numFrames, int frameWidth, int frameHeight, int duration)
     {
+        this.fileName = path;
         this.frameWidth = frameWidth;
         this.frameHeight = frameHeight;
         this.duration = duration;
@@ -26,11 +31,16 @@ public class Animation
         this.numFrames = numFrames;
         images = new BufferedImage[numFrames];
         loadImage(path);
+    }
 
+    public Animation(String path, int numFrames, int frameWidth, int frameHeight, int duration,boolean loopable,int[] keyframes)
+    {
+        this(path,numFrames,frameWidth,frameHeight,duration);
+        this.loopable = loopable;
+        this.keyframes = keyframes;
     }
 
     public void loadImage(String path){
-        System.out.println("Frame width: " + frameWidth + " Frame height: " + frameHeight);
         try {
             BufferedImage image = ImageIO.read(new File(path));
 
@@ -47,28 +57,51 @@ public class Animation
 
     }
 
-    public Image nextImage()
-    {
-        if(delay == 0)
-        {
+    public boolean isKeyFrame(){
+        if(keyframes == null){return false;}
+        for (int i = 0; i < this.keyframes.length; i++){
+            if(this.keyframes[i] == this.current && delay == duration){
+                return  true;
+            }
+        }
+        return false;
+    }
+
+    public Image nextImage() {
+        if (delay == 0) {
             current++;
 
-            if(current >= images.length)  current = 1;
+            if (loopable) {
+                current = current % numFrames;
+            } else if (current >= numFrames) {
+                current = numFrames -1 ;
+                finished = true;
+            }
 
             delay = duration;
-        }
-        else
-        {
+        } else {
             delay--;
         }
 
         return images[current];
     }
 
+    public boolean isFinished()
+    {
+        return finished;
+    }
+
+    public boolean finished(){
+        return current >= numFrames-1 && delay == 0;
+    }
     public Image stillImage()
     {
         return images[0];
     }
 
-
+    public void reset(){
+        this.current = 0;
+        this.delay = duration;
+        this.finished = false;
+    }
 }
