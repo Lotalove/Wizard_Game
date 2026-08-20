@@ -10,9 +10,9 @@ public class Vampire extends Character1 {
 
     static final int sightRadius=800;
     static final int attackRadius=64;
-
+    static final int d=50;
     public Vampire(int x, int y) {
-        super(x, y, SPRITE_WIDTH, SPRITE_HEIGHT, SCALE, 100, attackRadius, xOffset, yOffset, widthOffset, heightOffset);
+        super(x, y, SPRITE_WIDTH, SPRITE_HEIGHT, SCALE, 100, d,attackRadius, xOffset, yOffset, widthOffset, heightOffset);
         loadAnimations();
         this.computer_controlled = true;
         this.ai_sight_range = sightRadius;
@@ -26,10 +26,10 @@ public class Vampire extends Character1 {
         Animation RunRight = new Animation("./art/Vampires1/Walk/walk_right.png",6,SPRITE_WIDTH,SPRITE_HEIGHT,8);
         Animation RunLeft = new Animation("./art/Vampires1/Walk/walk_left.png",6,SPRITE_WIDTH,SPRITE_HEIGHT,8);
 
-        Animation AttackUp =    new Animation(   "./art/Vampires1/Attack/attack_up.png",12,SPRITE_WIDTH,SPRITE_HEIGHT,8);
-        Animation AttackDown =  new Animation( "./art/Vampires1/Attack/attack_down.png",12,SPRITE_WIDTH,SPRITE_HEIGHT,8);
-        Animation AttackLeft =  new Animation( "./art/Vampires1/Attack/attack_left.png",12,SPRITE_WIDTH,SPRITE_HEIGHT,8);
-        Animation AttackRight = new Animation("./art/Vampires1/Attack/attack_right.png",12,SPRITE_WIDTH,SPRITE_HEIGHT,8);
+        Animation AttackUp =    new Animation(   "./art/Vampires1/Attack/attack_up.png",12,SPRITE_WIDTH,SPRITE_HEIGHT,8,false,new int[]{6});
+        Animation AttackDown =  new Animation( "./art/Vampires1/Attack/attack_down.png",12,SPRITE_WIDTH,SPRITE_HEIGHT,8,false,new int[]{6});
+        Animation AttackLeft =  new Animation( "./art/Vampires1/Attack/attack_left.png",12,SPRITE_WIDTH,SPRITE_HEIGHT,8,false,new int[]{6});
+        Animation AttackRight = new Animation("./art/Vampires1/Attack/attack_right.png",12,SPRITE_WIDTH,SPRITE_HEIGHT,8,false,new int[]{6});
 
         Animation IdleUP =    new Animation(   "./art/Vampires1/Idle/idle_up.png",4,SPRITE_WIDTH,SPRITE_HEIGHT,8);
         Animation IdleDown =  new Animation( "./art/Vampires1/Idle/idle_down.png",4,SPRITE_WIDTH,SPRITE_HEIGHT,8);

@@ -10,9 +10,9 @@ public class Soldier extends Character1 {
 
     static final int sightRadius=800;
     static final int attackRadius=64;
-
+    static final int d=33;
     public Soldier(int x, int y) {
-        super(x, y, SPRITE_WIDTH, SPRITE_HEIGHT, SCALE, 100, attackRadius, xOffset, yOffset, widthOffset, heightOffset);
+        super(x, y, SPRITE_WIDTH, SPRITE_HEIGHT, SCALE, 100, d,attackRadius, xOffset, yOffset, widthOffset, heightOffset);
         loadAnimations();
         this.computer_controlled = true;
         this.ai_sight_range= sightRadius;

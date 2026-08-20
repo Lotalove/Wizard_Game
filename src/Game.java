@@ -125,17 +125,17 @@ public class Game  implements Runnable, KeyListener, MouseListener, MouseMotionL
 
                    if (player.dealingDamage) {
                        if (player.getDamageBox().overlaps(enemy.hitbox)) {
-                           enemy.takeDamage(50);
+                           enemy.takeDamage(player.damage);
                            enemy.knockBack(player);
                            if (enemy.droppedLoot) {
-                               Game.state = "Looting";
                                Clue.addClue();
+                               if (Clue.clues.size() ==1 ) Game.state = "Looting";
                            }
                        }
                    }
                    if (enemy.dealingDamage) {
                        if (enemy.getDamageBox().overlaps(player.hitbox)) {
-                           player.takeDamage(50);
+                           player.takeDamage(enemy.damage);
                            player.knockBack(enemy);
                        }
                    }
@@ -149,14 +149,14 @@ public class Game  implements Runnable, KeyListener, MouseListener, MouseMotionL
                    }
                }
 
-               if(GameCanvas.chest.overlaps(player.hitbox)) {
+               GameCanvas.chest.in_player_focus = false;
+               if(GameCanvas.chest.overlaps(player.getDamageBox())) {
                GameCanvas.chest.in_player_focus = true;
                if (pressedE) {
                    Game.state = "End";
                }
                }
 
-               System.out.println( GameCanvas.chest.in_player_focus);
 
                Camera.x = Math.max(0, player.x - GameCanvas.WIDTH / 2);
                Camera.y = Math.max(0, player.y - GameCanvas.HEIGHT / 2);
@@ -171,8 +171,9 @@ public class Game  implements Runnable, KeyListener, MouseListener, MouseMotionL
 
     public void reset(){
         Enemies.load();
+        Clue.reset();
         enemies = Enemies.enemies;
-        player = new Player(500,0);
+        player = new Player(500,500);
     }
 
     @Override

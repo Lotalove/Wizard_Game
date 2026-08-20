@@ -36,7 +36,7 @@ public class Clue {
         int cordValue = cordType.equals("x") ? GameCanvas.chest.x : GameCanvas.chest.y;
         String[] digits = Integer.toString(cordValue).split("");
 
-
+        // x: 1000 -> 1000 -> [1,0,0,0] -> "X:1???"
         int idx = random.nextInt(digits.length);
 
 
@@ -87,5 +87,9 @@ public class Clue {
 
     public static void prevPage() {
         if (currentPage > 0) currentPage--;
+    }
+
+    public static void reset() {
+       clues.clear();
     }
 }

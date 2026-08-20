@@ -10,10 +10,10 @@ public class Player extends Character1 {
 
     static final int attackRadius=32;
 
-    static int maxHealth = 100;
-
+    static int maxHealth = 150;
+    static int d = 50;
     public Player(int x, int y) {
-        super(x, y, SPRITE_WIDTH, SPRITE_HEIGHT, SCALE, maxHealth, attackRadius, xOffset, yOffset, widthOffset, heightOffset);
+        super(x, y, SPRITE_WIDTH, SPRITE_HEIGHT, SCALE, maxHealth, d,attackRadius, xOffset, yOffset, widthOffset, heightOffset);
         loadAnimations();
         this.action = IDLE;
         this.speed = 6;
@@ -27,10 +27,10 @@ public class Player extends Character1 {
         Animation wizardLeftWalk = new Animation( "./art/Wizard_3/walk/left_walk.png",9,SPRITE_WIDTH,SPRITE_HEIGHT,8);
         Animation wizardRightWalk = new Animation("./art/Wizard_3/walk/right_walk.png",9,SPRITE_WIDTH,SPRITE_HEIGHT,8);
 
-        Animation wizardBackAttack = new Animation(   "./art/Wizard_3/thrust/thrust_back.png",8,SPRITE_WIDTH,SPRITE_HEIGHT,4,false, new int[] {5});
-        Animation wizardFrontAttack = new Animation(   "./art/Wizard_3/thrust/thrust_front.png",8,SPRITE_WIDTH,SPRITE_HEIGHT,4,false,new int[] {5});
-        Animation wizardLeftAttack = new Animation(   "./art/Wizard_3/thrust/thrust_left.png",8,SPRITE_WIDTH,SPRITE_HEIGHT,4,false,new int[] {5});
-        Animation wizardRightAttack = new Animation(   "./art/Wizard_3/thrust/thrust_right.png",8,SPRITE_WIDTH,SPRITE_HEIGHT,4,false,new int[] {5});
+        Animation wizardBackAttack = new Animation(   "./art/Wizard_3/thrust/thrust_back.png",8,SPRITE_WIDTH,SPRITE_HEIGHT,3,false, new int[] {5});
+        Animation wizardFrontAttack = new Animation(   "./art/Wizard_3/thrust/thrust_front.png",8,SPRITE_WIDTH,SPRITE_HEIGHT,3,false,new int[] {5});
+        Animation wizardLeftAttack = new Animation(   "./art/Wizard_3/thrust/thrust_left.png",8,SPRITE_WIDTH,SPRITE_HEIGHT,3,false,new int[] {5});
+        Animation wizardRightAttack = new Animation(   "./art/Wizard_3/thrust/thrust_right.png",8,SPRITE_WIDTH,SPRITE_HEIGHT,3,false,new int[] {5});
 
         Animation wizardBackIdle =  new Animation( "./art/Wizard_3/idle/idle_back.png",2,SPRITE_WIDTH,SPRITE_HEIGHT,8);
         Animation wizardFrontIdle = new Animation("./art/Wizard_3/idle/idle_front.png",2,SPRITE_WIDTH,SPRITE_HEIGHT,8);

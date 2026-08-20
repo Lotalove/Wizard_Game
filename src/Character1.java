@@ -6,6 +6,7 @@ public abstract class Character1 extends Sprite {
     protected int health;
     protected int maxHealth;
     protected int speed=5 ;
+    protected int damage; ;
     protected boolean dealingDamage = false;
     protected boolean alive = true;
     protected boolean droppedLoot = false;
@@ -26,11 +27,12 @@ public abstract class Character1 extends Sprite {
     int ai_sight_range;
 
     public Character1(int x, int y, int spriteWidth, int spriteHeight, double scale,
-                      int health, int attackRadius,
+                      int health, int damage,int attackRadius,
                       int xOffset, int yOffset, int widthOffset, int heightOffset) {
         super(x, y, spriteWidth, spriteHeight, scale);
         this.health = health;
         this.maxHealth = health;
+        this.damage = damage;
         this.attackRadius = attackRadius;
         this.xOffset = xOffset;
         this.yOffset = yOffset;
